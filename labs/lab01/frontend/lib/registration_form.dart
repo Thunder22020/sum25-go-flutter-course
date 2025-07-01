@@ -49,7 +49,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
               children: [
                 TextFormField(
                   key: const Key('name'),
-                  // TODO: use _nameController
                   decoration: const InputDecoration(
                     labelText: 'Name',
                     hintText: 'Enter your name',
@@ -64,7 +63,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 const SizedBox(height: 16),
                 TextFormField(
                   key: const Key('email'),
-                  // TODO: use _emailController
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     hintText: 'Enter your email',
@@ -86,7 +84,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 const SizedBox(height: 16),
                 TextFormField(
                   key: const Key('password'),
-                  // TODO: use _passwordController
                   controller: _passwordController,
                   decoration: const InputDecoration(
                     labelText: 'Password',
@@ -101,7 +98,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   },
                 ),
                 const SizedBox(height: 32),
-                // TODO: add a ElevatedButton with onPressed: _submitForm and child: Text('Submit')
                 ElevatedButton(
                     onPressed: _submitForm, child: const Text("Submit"))
               ],

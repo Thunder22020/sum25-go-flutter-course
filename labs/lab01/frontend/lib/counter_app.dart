@@ -34,7 +34,6 @@ class _CounterAppState extends State<CounterApp> {
       appBar: AppBar(
         title: const Text('Counter App'),
         actions: [
-          // TODO: add a refresh button with Icon(Icons.refresh)
           IconButton(
             onPressed: _resetCounter,
             icon: const Icon(Icons.refresh),
@@ -53,14 +52,11 @@ class _CounterAppState extends State<CounterApp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // TODO: add a decrement button with Icon(Icons.remove) and onPressed: _decrementCounter
                 FloatingActionButton(
                   onPressed: _decrementCounter,
                   child: const Icon(Icons.remove),
                 ),
-
                 const SizedBox(width: 32),
-                // TODO: add a increment button with Icon(Icons.add) and onPressed: _incrementCounter
                 FloatingActionButton(
                   onPressed: _incrementCounter,
                   child: const Icon(Icons.add),

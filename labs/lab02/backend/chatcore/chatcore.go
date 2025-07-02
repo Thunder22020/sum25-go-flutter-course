@@ -38,12 +38,16 @@ func NewBroker(ctx context.Context) *Broker {
 // Run starts the broker event loop (fan-in/fan-out pattern)
 func (b *Broker) Run() {
 	go func() {
+		defer close(b.done)
+		defer close(b.input) // ⬅️ закрываем канал input при завершении
 		for {
 			select {
 			case <-b.ctx.Done():
-				close(b.done)
 				return
-			case msg := <-b.input:
+			case msg, ok := <-b.input:
+				if !ok {
+					return
+				}
 				msg.Timestamp = time.Now().Unix()
 				if msg.Broadcast {
 					b.usersMutex.RLock()
@@ -51,7 +55,6 @@ func (b *Broker) Run() {
 						select {
 						case ch <- msg:
 						default:
-							// skip if channel full
 						}
 					}
 					b.usersMutex.RUnlock()
@@ -63,7 +66,6 @@ func (b *Broker) Run() {
 						select {
 						case ch <- msg:
 						default:
-							// skip if full
 						}
 					}
 				}
@@ -71,6 +73,7 @@ func (b *Broker) Run() {
 		}
 	}()
 }
+
 
 // SendMessage sends a message to the broker
 func (b *Broker) SendMessage(msg Message) error {

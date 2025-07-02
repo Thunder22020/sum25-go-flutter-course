@@ -77,6 +77,10 @@ func (b *Broker) Run() {
 
 // SendMessage sends a message to the broker
 func (b *Broker) SendMessage(msg Message) error {
+	if b.ctx.Err() != nil {
+		return errors.New("broker stopped")
+	}
+
 	select {
 	case <-b.ctx.Done():
 		return errors.New("broker stopped")

@@ -1,8 +1,6 @@
 class UserService {
   Future<Map<String, String>> fetchUser() async {
-    // TODO: Simulate fetching user data for tests
-    // await Future.delayed(...)
-    // return {'name': ..., 'email': ...}
-    throw UnimplementedError();
+    await Future.delayed(Duration(microseconds: 100));
+    return {'name': "Alice", 'email': "alice@example.com"};
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
-
 import 'package:lab03_frontend/screens/chat_screen.dart';
 import 'package:lab03_frontend/services/api_service.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   group('ChatScreen Widget Tests', () {

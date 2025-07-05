@@ -1,8 +1,7 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-
-import 'package:lab03_frontend/services/api_service.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:lab03_frontend/models/message.dart';
+import 'package:lab03_frontend/services/api_service.dart';
 
 void main() {
   group('HTTP Status Code Tests', () {

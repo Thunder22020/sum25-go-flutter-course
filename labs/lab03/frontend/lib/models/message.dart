@@ -98,8 +98,6 @@ class ApiResponse<T> {
     Map<String, dynamic> json,
     T Function(dynamic) fromData,
   ) {
-    print(json);
-
     return ApiResponse(
       success: json['success'] as bool? ?? false,
       data: json['data'] != null

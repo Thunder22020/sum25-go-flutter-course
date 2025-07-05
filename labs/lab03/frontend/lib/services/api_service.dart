@@ -67,8 +67,6 @@ class ApiService {
     if (error != null) throw ValidationException(error);
 
     try {
-      print("Ya tut");
-
       final response = await _client
           .post(
             Uri.parse('$baseUrl/api/messages'),
@@ -83,9 +81,6 @@ class ApiService {
                 json,
                 (data) => Message.fromJson(data),
               ));
-      print("DO");
-      print(response.body);
-      print(apiResponse.data == null);
       return apiResponse.data!;
     } on TimeoutException {
       throw NetworkException('Request timed out');

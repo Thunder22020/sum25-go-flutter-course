@@ -3,8 +3,8 @@ import 'package:lab02_chat/user_service.dart';
 
 // UserProfile displays and updates user info
 class UserProfile extends StatefulWidget {
-  final UserService
-      userService; // Accepts a user service for fetching user info
+  final UserService userService;
+
   const UserProfile({Key? key, required this.userService}) : super(key: key);
 
   @override
@@ -12,21 +12,84 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  // TODO: Add state for user data, loading, and error
-  // TODO: Fetch user info from userService (simulate for tests)
+  Map<String, String>? _user;
+  String? _error;
+  bool _loading = false;
 
   @override
   void initState() {
     super.initState();
-    // TODO: Fetch user info and update state
+    _loadUser();
+  }
+
+  void _loadUser() async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+
+    try {
+      final user = await widget.userService.fetchUser();
+      setState(() {
+        _user = user;
+      });
+    } catch (e) {
+      setState(() {
+        _error = 'error: $e';
+      });
+    } finally {
+      setState(() {
+        _loading = false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Build user profile UI with loading, error, and user info
     return Scaffold(
       appBar: AppBar(title: const Text('User Profile')),
-      body: const Center(child: Text('TODO: Implement user profile UI')),
+      body: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : _error != null
+              ? Center(
+                  child:
+                      Text(_error!, style: const TextStyle(color: Colors.red)),
+                )
+              : _user != null
+                  ? Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Name: ",
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                              Text(
+                                "${_user!['name']}",
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Text(
+                                "Email: ",
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                              Text(
+                                "${_user!['email']}",
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  : const Center(child: Text("No user data")),
     );
   }
 }
